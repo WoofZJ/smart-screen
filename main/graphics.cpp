@@ -58,7 +58,7 @@ Graphics::drawLine(
         y_from = temp;
     }
     for (int16_t x = x_from; x <= x_to; x += 1) {
-        drawPixel(x, y_from+((float)y_to-y_from)/(x_to-x_from)*(x-x_from)+0.5, c);
+        drawPixel(x, roundf(y_from+((float)y_to-y_from)/(x_to-x_from)*(x-x_from)), c);
     }
 
     if (y_from > y_to) {
@@ -70,7 +70,7 @@ Graphics::drawLine(
         y_from = temp;
     }
     for (int16_t y = y_from; y <= y_to; y += 1) {
-        drawPixel(x_from+((float)x_to-x_from)/(y_to-y_from)*(y-y_from)+0.5, y, c);
+        drawPixel(roundf(x_from+((float)x_to-x_from)/(y_to-y_from)*(y-y_from)), y, c);
     }
 }
 

@@ -18,14 +18,15 @@ void Clock::setTime(uint8_t hour, uint8_t minute, uint8_t second)
 void Clock::render(Graphics& gfx)
 {
     static float pi = 4*atanf(1);
-    uint16_t x, y;
-    float hour_len = m_r*0.4f;
-    float minute_len = m_r*0.75f;
-    float second_len = m_r*0.95f;
+    static float hour_len = m_r*0.4f;
+    static float minute_len = m_r*0.75f;
+    static float second_len = m_r*0.95f;
+
     float hour_angle = pi/2.f-(m_hour+m_minute/60.f)*pi/6.f;
     float minute_angle = pi/2.f - (m_minute+m_second/60.f)*pi/30.f;
     float second_angle = pi/2.f - m_second*pi/30.f;
 
+    uint16_t x, y;
     x = m_x + hour_len*cosf(hour_angle);
     y = m_y + hour_len*sinf(hour_angle);
     gfx.drawLine(m_x, m_y, x, y, 0xff0000);
@@ -42,7 +43,7 @@ void Clock::render(Graphics& gfx)
 
     for (int i = 0; i < 12; ++i) {
         float angle = pi/2 - i*pi/6;
-        gfx.drawPixel(m_x+m_r*cosf(angle), m_y+m_r*sinf(angle),
+        gfx.drawPixel(roundf(m_x+m_r*cosf(angle)), roundf(m_y+m_r*sinf(angle)),
                       angle > hour_angle ? 0xff0000 : 0xffff00);
     }
 }
